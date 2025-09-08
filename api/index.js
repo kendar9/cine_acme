@@ -104,7 +104,8 @@ app.get("/health", (req, res) => {
     status: "OK", 
     message: "Servidor de Cines Acme funcionando correctamente",
     timestamp: new Date().toISOString(),
-    database: dbConnected ? "Conectada" : "No conectada"
+    database: dbConnected ? "Conectada" : "No conectada",
+    version: "1.0.1"
   });
 });
 
