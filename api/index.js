@@ -99,7 +99,7 @@ app.post("/users/login", async (req, res) => {
   }
 });
 
-// Rutas básicas de la API
+// Rutas básicas de la API - GET
 app.get("/users", verifyToken, async (req, res) => {
   try {
     const db = await connectDB();
@@ -147,6 +147,264 @@ app.get("/funciones", async (req, res) => {
     res.json(funciones);
   } catch (error) {
     res.status(500).json({ error: "Error al obtener funciones" });
+  }
+});
+
+// Rutas CRUD - POST (Crear)
+app.post("/users", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const result = await db.collection('users').insertOne(req.body);
+    res.status(201).json({ message: "Usuario creado exitosamente", id: result.insertedId });
+  } catch (error) {
+    res.status(500).json({ error: "Error al crear usuario" });
+  }
+});
+
+app.post("/cines", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const result = await db.collection('cines').insertOne(req.body);
+    res.status(201).json({ message: "Cine creado exitosamente", id: result.insertedId });
+  } catch (error) {
+    res.status(500).json({ error: "Error al crear cine" });
+  }
+});
+
+app.post("/peliculas", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const result = await db.collection('peliculas').insertOne(req.body);
+    res.status(201).json({ message: "Película creada exitosamente", id: result.insertedId });
+  } catch (error) {
+    res.status(500).json({ error: "Error al crear película" });
+  }
+});
+
+app.post("/salas", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const result = await db.collection('salas').insertOne(req.body);
+    res.status(201).json({ message: "Sala creada exitosamente", id: result.insertedId });
+  } catch (error) {
+    res.status(500).json({ error: "Error al crear sala" });
+  }
+});
+
+app.post("/funciones", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const result = await db.collection('funciones').insertOne(req.body);
+    res.status(201).json({ message: "Función creada exitosamente", id: result.insertedId });
+  } catch (error) {
+    res.status(500).json({ error: "Error al crear función" });
+  }
+});
+
+// Rutas CRUD - PUT (Actualizar)
+app.put("/users/:id", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const { ObjectId } = await import('mongodb');
+    const result = await db.collection('users').updateOne(
+      { _id: new ObjectId(req.params.id) },
+      { $set: req.body }
+    );
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+    res.json({ message: "Usuario actualizado exitosamente" });
+  } catch (error) {
+    res.status(500).json({ error: "Error al actualizar usuario" });
+  }
+});
+
+app.put("/cines/:id", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const { ObjectId } = await import('mongodb');
+    const result = await db.collection('cines').updateOne(
+      { _id: new ObjectId(req.params.id) },
+      { $set: req.body }
+    );
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: "Cine no encontrado" });
+    }
+    res.json({ message: "Cine actualizado exitosamente" });
+  } catch (error) {
+    res.status(500).json({ error: "Error al actualizar cine" });
+  }
+});
+
+app.put("/peliculas/:id", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const { ObjectId } = await import('mongodb');
+    const result = await db.collection('peliculas').updateOne(
+      { _id: new ObjectId(req.params.id) },
+      { $set: req.body }
+    );
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: "Película no encontrada" });
+    }
+    res.json({ message: "Película actualizada exitosamente" });
+  } catch (error) {
+    res.status(500).json({ error: "Error al actualizar película" });
+  }
+});
+
+app.put("/salas/:id", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const { ObjectId } = await import('mongodb');
+    const result = await db.collection('salas').updateOne(
+      { _id: new ObjectId(req.params.id) },
+      { $set: req.body }
+    );
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: "Sala no encontrada" });
+    }
+    res.json({ message: "Sala actualizada exitosamente" });
+  } catch (error) {
+    res.status(500).json({ error: "Error al actualizar sala" });
+  }
+});
+
+app.put("/funciones/:id", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const { ObjectId } = await import('mongodb');
+    const result = await db.collection('funciones').updateOne(
+      { _id: new ObjectId(req.params.id) },
+      { $set: req.body }
+    );
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: "Función no encontrada" });
+    }
+    res.json({ message: "Función actualizada exitosamente" });
+  } catch (error) {
+    res.status(500).json({ error: "Error al actualizar función" });
+  }
+});
+
+// Rutas CRUD - DELETE (Eliminar)
+app.delete("/users/:id", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const { ObjectId } = await import('mongodb');
+    const result = await db.collection('users').deleteOne({ _id: new ObjectId(req.params.id) });
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+    res.json({ message: "Usuario eliminado exitosamente" });
+  } catch (error) {
+    res.status(500).json({ error: "Error al eliminar usuario" });
+  }
+});
+
+app.delete("/cines/:id", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const { ObjectId } = await import('mongodb');
+    const result = await db.collection('cines').deleteOne({ _id: new ObjectId(req.params.id) });
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ error: "Cine no encontrado" });
+    }
+    res.json({ message: "Cine eliminado exitosamente" });
+  } catch (error) {
+    res.status(500).json({ error: "Error al eliminar cine" });
+  }
+});
+
+app.delete("/peliculas/:id", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const { ObjectId } = await import('mongodb');
+    const result = await db.collection('peliculas').deleteOne({ _id: new ObjectId(req.params.id) });
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ error: "Película no encontrada" });
+    }
+    res.json({ message: "Película eliminada exitosamente" });
+  } catch (error) {
+    res.status(500).json({ error: "Error al eliminar película" });
+  }
+});
+
+app.delete("/salas/:id", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const { ObjectId } = await import('mongodb');
+    const result = await db.collection('salas').deleteOne({ _id: new ObjectId(req.params.id) });
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ error: "Sala no encontrada" });
+    }
+    res.json({ message: "Sala eliminada exitosamente" });
+  } catch (error) {
+    res.status(500).json({ error: "Error al eliminar sala" });
+  }
+});
+
+app.delete("/funciones/:id", verifyToken, async (req, res) => {
+  try {
+    const db = await connectDB();
+    const { ObjectId } = await import('mongodb');
+    const result = await db.collection('funciones').deleteOne({ _id: new ObjectId(req.params.id) });
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ error: "Función no encontrada" });
+    }
+    res.json({ message: "Función eliminada exitosamente" });
+  } catch (error) {
+    res.status(500).json({ error: "Error al eliminar función" });
+  }
+});
+
+// Rutas de reportes
+app.get("/reportes/funciones-disponibles", async (req, res) => {
+  try {
+    const { cine, pelicula } = req.query;
+    const db = await connectDB();
+    
+    let query = {};
+    if (cine) query.cine = cine;
+    if (pelicula) query.pelicula = pelicula;
+    
+    const funciones = await db.collection('funciones').find(query).toArray();
+    res.json(funciones);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener funciones disponibles" });
+  }
+});
+
+app.get("/reportes/peliculas-vigentes", async (req, res) => {
+  try {
+    const { cine, fecha } = req.query;
+    const db = await connectDB();
+    
+    let query = {};
+    if (cine) query.cine = cine;
+    if (fecha) query.fecha = fecha;
+    
+    const peliculas = await db.collection('peliculas').find(query).toArray();
+    res.json(peliculas);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener películas vigentes" });
+  }
+});
+
+app.get("/reportes/peliculas-proyectadas", async (req, res) => {
+  try {
+    const { fecha_inicio, fecha_fin } = req.query;
+    const db = await connectDB();
+    
+    let query = {};
+    if (fecha_inicio && fecha_fin) {
+      query.fecha = { $gte: fecha_inicio, $lte: fecha_fin };
+    }
+    
+    const peliculas = await db.collection('peliculas').find(query).toArray();
+    res.json(peliculas);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener películas proyectadas" });
   }
 });
 
@@ -227,17 +485,22 @@ app.post("/login", async (req, res) => {
 app.get("/", (req, res) => {
   res.json({
     message: "API de Cines Acme",
-    version: "1.0.4",
+    version: "1.0.6",
     status: "Funcionando",
     database: "MongoDB Atlas",
     endpoints: {
       health: "/health",
       login: "/login",
-      users: "/users",
-      cines: "/cines",
-      peliculas: "/peliculas",
-      salas: "/salas",
-      funciones: "/funciones"
+      users: "/users (GET, POST, PUT, DELETE)",
+      cines: "/cines (GET, POST, PUT, DELETE)",
+      peliculas: "/peliculas (GET, POST, PUT, DELETE)",
+      salas: "/salas (GET, POST, PUT, DELETE)",
+      funciones: "/funciones (GET, POST, PUT, DELETE)",
+      reportes: {
+        funciones_disponibles: "/reportes/funciones-disponibles",
+        peliculas_vigentes: "/reportes/peliculas-vigentes",
+        peliculas_proyectadas: "/reportes/peliculas-proyectadas"
+      }
     }
   });
 });

@@ -56,7 +56,7 @@ export const funcionService = {
 
 // Auth-specific services can remain separate
 export async function handleLogin(email, password) {
-  const data = await request("/login", { // Using new login endpoint
+  const data = await request("/login", { // Using correct login endpoint for Vercel API
     method: "POST",
     body: JSON.stringify({ email, password }),
   });
