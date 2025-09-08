@@ -56,7 +56,7 @@ export const funcionService = {
 
 // Auth-specific services can remain separate
 export async function handleLogin(email, password) {
-  const data = await request("/users/login", { // Assuming login route is /api/users/login
+  const data = await request("/login", { // Using new login endpoint
     method: "POST",
     body: JSON.stringify({ email, password }),
   });
