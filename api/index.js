@@ -4,6 +4,8 @@ import cors from "cors";
 
 import { connectDB } from "../database/connection.js";
 import { configurarBaseDeDatos } from "../database/setup_schemas.js";
+import UserController from "../controllers/user.controller.js";
+import { verifyToken } from "../middleware/auth.middleware.js";
 
 const app = express();
 
@@ -11,6 +13,7 @@ const app = express();
 app.use(cors({
   origin: [
     'https://kendar9.github.io',
+    'https://kendar9.github.io/cine_acme',
     'https://kendar9.github.io/examen_express',
     'http://localhost:3000',
     'http://localhost:5173'
@@ -41,8 +44,11 @@ app.use(async (req, res, next) => {
   next();
 });
 
+// Rutas de autenticación
+app.post("/users/login", UserController.loginUser);
+
 // Rutas básicas de la API
-app.get("/users", async (req, res) => {
+app.get("/users", verifyToken, async (req, res) => {
   try {
     const db = await connectDB();
     const users = await db.collection('users').find({}).toArray();
