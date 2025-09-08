@@ -481,6 +481,15 @@ app.post("/init-data", async (req, res) => {
         capacidad_total: 300,
         created_at: new Date(),
         updated_at: new Date()
+      },
+      {
+        codigo: 'CINE003',
+        nombre: 'Cine Acme Sur',
+        direccion: 'Carrera 789 #12-34',
+        telefono: '3003456789',
+        capacidad_total: 400,
+        created_at: new Date(),
+        updated_at: new Date()
       }
     ];
     
@@ -550,6 +559,24 @@ app.post("/init-data", async (req, res) => {
         equipamiento: 'Proyector HD, Sonido Surround',
         created_at: new Date(),
         updated_at: new Date()
+      },
+      {
+        numero: 1,
+        cine: 'CINE003',
+        capacidad: 200,
+        tipo: 'IMAX',
+        equipamiento: 'Proyector IMAX, Pantalla Gigante, Sonido IMAX',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        numero: 2,
+        cine: 'CINE003',
+        capacidad: 150,
+        tipo: '4DX',
+        equipamiento: 'Proyector 4K, Asientos Móviles, Efectos Especiales',
+        created_at: new Date(),
+        updated_at: new Date()
       }
     ];
     
@@ -589,6 +616,30 @@ app.post("/init-data", async (req, res) => {
         hora_inicio: '21:00',
         hora_fin: '23:11',
         precio: 12000,
+        estado: 'activa',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        pelicula: 'Avengers: Endgame',
+        cine: 'CINE003',
+        sala: 1,
+        fecha: '2025-09-09',
+        hora_inicio: '18:00',
+        hora_fin: '21:01',
+        precio: 25000,
+        estado: 'activa',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        pelicula: 'Spider-Man: No Way Home',
+        cine: 'CINE003',
+        sala: 2,
+        fecha: '2025-09-09',
+        hora_inicio: '19:30',
+        hora_fin: '21:58',
+        precio: 30000,
         estado: 'activa',
         created_at: new Date(),
         updated_at: new Date()
