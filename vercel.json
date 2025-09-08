@@ -1,0 +1,51 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.js"
+    },
+    {
+      "src": "/health",
+      "dest": "/api/index.js"
+    },
+    {
+      "src": "/users",
+      "dest": "/api/index.js"
+    },
+    {
+      "src": "/cines",
+      "dest": "/api/index.js"
+    },
+    {
+      "src": "/peliculas",
+      "dest": "/api/index.js"
+    },
+    {
+      "src": "/salas",
+      "dest": "/api/index.js"
+    },
+    {
+      "src": "/funciones",
+      "dest": "/api/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 30
+    }
+  }
+}

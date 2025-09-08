@@ -1,0 +1,11 @@
+Cine Acme quiere premiar la fidelidad de sus clientes, por lo cual ha decidido implementar en su plataforma la gestión de clientes y la asignación de puntos por cada visita a sus cines. Dicho lo anterior, se requiere de servicios para gestión de clientes (CRUD), los cuales tienen los siguientes datos: identificación, nombre completo, correo electrónico y teléfono.
+
+
+
+Cree un endpoint que permita agregar puntos a un cliente, este debe asociar una fecha y la cantidad de puntos ganados.
+
+También, cree un endpoint que genera la data para el informe de fidelidad, este debe generar la lista de clientes (todos los datos de este) junto con los meses del año y la cantidad de puntos acumulados en estos.
+
+
+
+Recuerde mantener la arquitectura propuesta en el proyecto.
