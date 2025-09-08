@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
+import { createHashRouter, RouterProvider, Navigate } from 'react-router-dom';
 import Login from './Login.jsx';
 import Dashboard from './Dashboard.jsx';
 import GlobalStyle from './globalStyles.js';
@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children }) => {
   return isAuthenticated() ? children : <Navigate to="/login" />;
 };
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <Navigate to="/dashboard" />,
@@ -35,9 +35,7 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-], {
-  basename: '/cine_acme'
-});
+]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
