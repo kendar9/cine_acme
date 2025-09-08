@@ -113,10 +113,12 @@ app.get("/health", (req, res) => {
 app.get("/", (req, res) => {
   res.json({
     message: "API de Cines Acme",
-    version: "1.0.0",
+    version: "1.0.2",
     status: "Funcionando",
+    database: "MongoDB Atlas",
     endpoints: {
       health: "/health",
+      login: "/users/login",
       users: "/users",
       cines: "/cines",
       peliculas: "/peliculas",
