@@ -1,0 +1,234 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-09-04T20:00:00.000Z",
+  "__export_source": "gemini-cli",
+  "resources": [
+    {
+      "_id": "wrk_1",
+      "parentId": null,
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "name": "Cines Acme API",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_1",
+      "parentId": "wrk_1",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:3000",
+        "jwt_token": "",
+        "cliente_id": ""
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "base_url",
+          "jwt_token",
+          "cliente_id"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1678886400000,
+      "_type": "environment"
+    },
+    {
+      "_id": "fld_1",
+      "parentId": "wrk_1",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "name": "Pruebas de Fidelidad",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1678886400000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_1",
+      "parentId": "fld_1",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.base_url }}/api/users/login",
+      "name": "1. Login Admin",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"email\": \"admin@cineacme.com\",\n    \"password\": \"123\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -100,
+      "_type": "request"
+    },
+    {
+      "_id": "req_2",
+      "parentId": "fld_1",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.base_url }}/api/clientes",
+      "name": "2. Crear Cliente",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"identificacion\": \"123456789\",\n    \"nombreCompleto\": \"Juan Perez\",\n    \"email\": \"juan.perez@example.com\",\n    \"telefono\": \"555-1234\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.jwt_token }}"
+      },
+      "metaSortKey": -90,
+      "_type": "request"
+    },
+    {
+      "_id": "req_3",
+      "parentId": "fld_1",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.base_url }}/api/clientes",
+      "name": "3. Obtener Clientes",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.jwt_token }}"
+      },
+      "metaSortKey": -80,
+      "_type": "request"
+    },
+    {
+      "_id": "req_4",
+      "parentId": "fld_1",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.base_url }}/api/clientes/{{ _.cliente_id }}",
+      "name": "4. Obtener Cliente por ID",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.jwt_token }}"
+      },
+      "metaSortKey": -70,
+      "_type": "request"
+    },
+    {
+      "_id": "req_5",
+      "parentId": "fld_1",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.base_url }}/api/clientes/{{ _.cliente_id }}",
+      "name": "5. Actualizar Cliente",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"telefono\": \"555-9999\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.jwt_token }}"
+      },
+      "metaSortKey": -60,
+      "_type": "request"
+    },
+    {
+      "_id": "req_6",
+      "parentId": "fld_1",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.base_url }}/api/clientes/{{ _.cliente_id }}/puntos",
+      "name": "6. Agregar Puntos",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n    \"cantidad\": 150\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.jwt_token }}"
+      },
+      "metaSortKey": -50,
+      "_type": "request"
+    },
+    {
+      "_id": "req_7",
+      "parentId": "fld_1",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.base_url }}/api/clientes/reporte-fidelidad",
+      "name": "7. Reporte de Fidelidad",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.jwt_token }}"
+      },
+      "metaSortKey": -40,
+      "_type": "request"
+    },
+    {
+      "_id": "req_8",
+      "parentId": "fld_1",
+      "modified": 1678886400000,
+      "created": 1678886400000,
+      "url": "{{ _.base_url }}/api/clientes/{{ _.cliente_id }}",
+      "name": "8. Eliminar Cliente",
+      "description": "",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.jwt_token }}"
+      },
+      "metaSortKey": -30,
+      "_type": "request"
+    }
+  ]
+}

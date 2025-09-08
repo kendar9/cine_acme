@@ -1,0 +1,74 @@
+
+{
+  "Cines": [
+    {
+      "_id": "cine_objet_id_1",
+      "nombre": "CinePrincipal Centro",
+      "direccion": "Calle Principal 123",
+      "salas": [
+        {
+          "_id": "sala_objet_id_101",
+          "nombre": "Sala 1",
+          "capacidad": 100,
+          "funciones": [
+            {
+              "_id": "funcion_objet_id_10101",
+              "pelicula_id": "pelicula_objet_id_1",
+              "horario": "2025-12-01T18:00:00Z",
+              "precio": 7.50
+            },
+            {
+              "_id": "funcion_objet_id_10102",
+              "pelicula_id": "pelicula_objet_id_2",
+              "horario": "2025-12-01T21:00:00Z",
+              "precio": 7.50
+            }
+          ]
+        },
+        {
+          "_id": "sala_objet_id_102",
+          "nombre": "Sala 2",
+          "capacidad": 120,
+          "funciones": [
+            {
+              "_id": "funcion_objet_id_10201",
+              "pelicula_id": "pelicula_objet_id_1",
+              "horario": "2025-12-01T19:00:00Z",
+              "precio": 8.00
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Peliculas": [
+    {
+      "_id": "pelicula_objet_id_1",
+      "titulo": "La Aventura Espacial",
+      "genero": "Ciencia Ficción",
+      "duracion": 125,
+      "clasificacion": "PG-13"
+    },
+    {
+      "_id": "pelicula_objet_id_2",
+      "titulo": "El Misterio del Río",
+      "genero": "Suspense",
+      "duracion": 110,
+      "clasificacion": "R"
+    }
+  ],
+  "Usuarios": [
+    {
+      "_id": "usuario_objet_id_1",
+      "nombre_completo": "Juan Pérez",
+      "email": "juan.perez@example.com",
+      "rol": "cliente"
+    },
+    {
+      "_id": "usuario_objet_id_2",
+      "nombre_completo": "Ana Gómez",
+      "email": "ana.gomez@example.com",
+      "rol": "administrador"
+    }
+  ]
+}

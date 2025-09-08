@@ -1,0 +1,56 @@
+{
+
+  "Usuarios": {
+    "esquema": {
+      "_id": "ObjectId",
+      "identificacion": {"type": "String", "unique": true},
+      "nombre_completo": "String",
+      "telefono": "String",
+      "email": {"type": "String", "unique": true},
+      "cargo": "String",
+      "password": "String"
+    }
+  },
+
+  "Peliculas": {
+    "esquema": {
+      "_id": "ObjectId",
+      "codigo": {"type": "String", "unique": true},
+      "titulo": "String",
+      "sinopsis": "String",
+      "reparto": ["String"],
+      "clasificacion": "String",
+      "idioma": "String",
+      "director": "String",
+      "duracion": "Number",
+      "genero": "String",
+      "fecha_estreno": "Date",
+      "trailer": "String",
+      "poster": "String"
+    }
+  },
+
+  "Cines": {
+    "esquema": {
+      "_id": "ObjectId",
+      "codigo": {"type": "String", "unique": true},
+      "nombre": "String",
+      "direccion": "String",
+      "ciudad": "String",
+      "salas": [
+        {
+          "_id": "ObjectId",
+          "codigo": "String",
+          "numero_sillas": "Number",
+          "funciones": [
+            {
+              "_id": "ObjectId",
+              "fecha_hora": "Date",
+              "pelicula_id": {"type": "ObjectId", "ref": "Peliculas"}
+            }
+          ]
+        }
+      ]
+    }
+  }
+} 
