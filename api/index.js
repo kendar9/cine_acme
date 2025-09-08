@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import jwt from "jsonwebtoken";
 
 import { connectDB } from "../database/connection.js";
 import { configurarBaseDeDatos } from "../database/setup_schemas.js";
@@ -69,7 +70,6 @@ app.post("/users/login", async (req, res) => {
       return res.status(401).json({ message: "Credenciales inválidas" });
     }
 
-    const jwt = await import('jsonwebtoken');
     const tokenPayload = {
       id: user._id,
       email: user.email,
@@ -415,10 +415,73 @@ app.get("/health", (req, res) => {
     message: "Servidor de Cines Acme funcionando correctamente",
     timestamp: new Date().toISOString(),
     database: dbConnected ? "Conectada" : "No conectada",
-    version: "1.0.3",
+    version: "1.0.6",
     mongodb: "Atlas",
     login: "Disponible"
   });
+});
+
+// Endpoint para inicializar datos de prueba
+app.post("/init-data", async (req, res) => {
+  try {
+    const db = await connectDB();
+    
+    // Verificar si ya existen datos
+    const userCount = await db.collection('users').countDocuments();
+    if (userCount > 0) {
+      return res.json({ 
+        message: "Los datos ya están inicializados", 
+        users: userCount,
+        status: "OK"
+      });
+    }
+    
+    // Crear usuario de prueba
+    const bcrypt = await import('bcrypt');
+    const hashedPassword = await bcrypt.hash('admin123', 10);
+    
+    const testUser = {
+      identificacion: '12345678',
+      nombre_completo: 'Administrador Principal',
+      telefono: '3001234567',
+      email: 'admin@cinesacme.com',
+      cargo: 'administrador',
+      password: hashedPassword,
+      created_at: new Date(),
+      updated_at: new Date()
+    };
+    
+    await db.collection('users').insertOne(testUser);
+    
+    // Crear algunos datos de ejemplo
+    const cines = [
+      {
+        codigo: 'CINE001',
+        nombre: 'Cine Acme Centro',
+        direccion: 'Calle 123 #45-67',
+        telefono: '3001234567',
+        capacidad_total: 500,
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ];
+    
+    await db.collection('cines').insertMany(cines);
+    
+    res.json({ 
+      message: "Datos de prueba inicializados correctamente",
+      users: 1,
+      cines: cines.length,
+      status: "OK"
+    });
+    
+  } catch (error) {
+    console.error('Error al inicializar datos:', error);
+    res.status(500).json({ 
+      error: "Error al inicializar datos de prueba",
+      message: error.message
+    });
+  }
 });
 
 // Endpoint de login en la ruta principal
@@ -450,7 +513,6 @@ app.post("/login", async (req, res) => {
       });
     }
 
-    const jwt = await import('jsonwebtoken');
     const tokenPayload = {
       id: user._id,
       email: user.email,

@@ -1,7 +1,7 @@
 // Configuración para el frontend
 const config = {
   // URL del backend desplegado en Vercel
-  API_BASE_URL: 'https://cines-acme-1a6gkqhng-kendar9s-projects.vercel.app',
+  API_BASE_URL: 'https://cines-acme-2lers3ypn-kendar9s-projects.vercel.app',
   
   // Para desarrollo local, usar:
   // API_BASE_URL: 'http://localhost:3000',
