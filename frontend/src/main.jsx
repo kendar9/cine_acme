@@ -35,7 +35,9 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-]);
+], {
+  basename: '/cine_acme'
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
