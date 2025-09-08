@@ -426,34 +426,43 @@ app.post("/init-data", async (req, res) => {
   try {
     const db = await connectDB();
     
-    // Verificar si ya existen datos
-    const userCount = await db.collection('users').countDocuments();
-    if (userCount > 0) {
-      return res.json({ 
-        message: "Los datos ya están inicializados", 
-        users: userCount,
-        status: "OK"
-      });
-    }
+    // Limpiar datos existentes
+    await db.collection('users').deleteMany({});
+    await db.collection('cines').deleteMany({});
+    await db.collection('peliculas').deleteMany({});
+    await db.collection('salas').deleteMany({});
+    await db.collection('funciones').deleteMany({});
     
     // Crear usuario de prueba
     const bcrypt = await import('bcrypt');
     const hashedPassword = await bcrypt.hash('admin123', 10);
     
-    const testUser = {
-      identificacion: '12345678',
-      nombre_completo: 'Administrador Principal',
-      telefono: '3001234567',
-      email: 'admin@cinesacme.com',
-      cargo: 'administrador',
-      password: hashedPassword,
-      created_at: new Date(),
-      updated_at: new Date()
-    };
+    const users = [
+      {
+        identificacion: '12345678',
+        nombre_completo: 'Administrador Principal',
+        telefono: '3001234567',
+        email: 'admin@cinesacme.com',
+        cargo: 'administrador',
+        password: hashedPassword,
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        identificacion: '87654321',
+        nombre_completo: 'Empleado Ejemplo',
+        telefono: '3007654321',
+        email: 'empleado@cinesacme.com',
+        cargo: 'empleado',
+        password: hashedPassword,
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ];
     
-    await db.collection('users').insertOne(testUser);
+    await db.collection('users').insertMany(users);
     
-    // Crear algunos datos de ejemplo
+    // Crear cines
     const cines = [
       {
         codigo: 'CINE001',
@@ -463,15 +472,138 @@ app.post("/init-data", async (req, res) => {
         capacidad_total: 500,
         created_at: new Date(),
         updated_at: new Date()
+      },
+      {
+        codigo: 'CINE002',
+        nombre: 'Cine Acme Norte',
+        direccion: 'Avenida 456 #78-90',
+        telefono: '3002345678',
+        capacidad_total: 300,
+        created_at: new Date(),
+        updated_at: new Date()
       }
     ];
     
     await db.collection('cines').insertMany(cines);
     
+    // Crear películas
+    const peliculas = [
+      {
+        titulo: 'Avengers: Endgame',
+        genero: 'Acción/Aventura',
+        duracion: 181,
+        clasificacion: 'PG-13',
+        director: 'Anthony Russo, Joe Russo',
+        sinopsis: 'Los Vengadores se unen para enfrentar a Thanos en una batalla épica.',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        titulo: 'Spider-Man: No Way Home',
+        genero: 'Acción/Aventura',
+        duracion: 148,
+        clasificacion: 'PG-13',
+        director: 'Jon Watts',
+        sinopsis: 'Peter Parker enfrenta multiversos y villanos de otras dimensiones.',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        titulo: 'Top Gun: Maverick',
+        genero: 'Acción/Drama',
+        duracion: 131,
+        clasificacion: 'PG-13',
+        director: 'Joseph Kosinski',
+        sinopsis: 'Maverick regresa para entrenar a una nueva generación de pilotos.',
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ];
+    
+    await db.collection('peliculas').insertMany(peliculas);
+    
+    // Crear salas
+    const salas = [
+      {
+        numero: 1,
+        cine: 'CINE001',
+        capacidad: 150,
+        tipo: '2D',
+        equipamiento: 'Proyector 4K, Sonido Dolby Atmos',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        numero: 2,
+        cine: 'CINE001',
+        capacidad: 120,
+        tipo: '3D',
+        equipamiento: 'Proyector 3D, Gafas 3D',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        numero: 1,
+        cine: 'CINE002',
+        capacidad: 100,
+        tipo: '2D',
+        equipamiento: 'Proyector HD, Sonido Surround',
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ];
+    
+    await db.collection('salas').insertMany(salas);
+    
+    // Crear funciones
+    const funciones = [
+      {
+        pelicula: 'Avengers: Endgame',
+        cine: 'CINE001',
+        sala: 1,
+        fecha: '2025-09-09',
+        hora_inicio: '19:00',
+        hora_fin: '22:01',
+        precio: 15000,
+        estado: 'activa',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        pelicula: 'Spider-Man: No Way Home',
+        cine: 'CINE001',
+        sala: 2,
+        fecha: '2025-09-09',
+        hora_inicio: '20:30',
+        hora_fin: '22:58',
+        precio: 18000,
+        estado: 'activa',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        pelicula: 'Top Gun: Maverick',
+        cine: 'CINE002',
+        sala: 1,
+        fecha: '2025-09-09',
+        hora_inicio: '21:00',
+        hora_fin: '23:11',
+        precio: 12000,
+        estado: 'activa',
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ];
+    
+    await db.collection('funciones').insertMany(funciones);
+    
     res.json({ 
       message: "Datos de prueba inicializados correctamente",
-      users: 1,
+      users: users.length,
       cines: cines.length,
+      peliculas: peliculas.length,
+      salas: salas.length,
+      funciones: funciones.length,
       status: "OK"
     });
     
