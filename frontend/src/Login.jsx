@@ -53,6 +53,24 @@ function Login() {
                 <HeaderTitle>Cine Acme</HeaderTitle>
             </Header>
             <Title>Iniciar Sesión</Title>
+
+            {/* Demo Credentials for Recruiters */}
+            <div style={{ 
+              background: '#2a2a2a', 
+              padding: '15px', 
+              borderRadius: '8px', 
+              textAlign: 'center', 
+              marginBottom: '20px',
+              border: '1px solid #444'
+            }}>
+              <p style={{ margin: 0, color: '#ccc', fontSize: '14px' }}>
+                <strong>Para reclutadores:</strong> Usar estas credenciales de prueba.
+              </p>
+              <p style={{ margin: '5px 0 0', color: '#fff', fontSize: '14px' }}>
+                <strong>Email:</strong> admin@cinesacme.com | <strong>Contraseña:</strong> admin123
+              </p>
+            </div>
+
             <Form onSubmit={handleSubmit}>
                 <InputGroup>
                     <Input
